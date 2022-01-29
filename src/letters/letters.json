@@ -1,3 +1,3 @@
 {
-    "r": [[{"on":false},{"on":false},{"on":false},{"on":false},{"on":false}],[{"on":false},{"on":false},{"on":false},{"on":false},{"on":false}],[{"on":false},{"on":false},{"on":false},{"on":false},{"on":false}],[{"on":false},{"on":false},{"on":false},{"on":false},{"on":false}],[{"on":false},{"on":false},{"on":false},{"on":false},{"on":false}],[{"on":false},{"on":false},{"on":false},{"on":false},{"on":false}],[{"on":false},{"on":false},{"on":false},{"on":false},{"on":false}]]
+    "r": [[{"on":true},{"on":true},{"on":true},{"on":true},{"on":false}],[{"on":true},{"on":false},{"on":false},{"on":false},{"on":true}],[{"on":true},{"on":false},{"on":false},{"on":false},{"on":true}],[{"on":true},{"on":true},{"on":true},{"on":true},{"on":false}],[{"on":true},{"on":false},{"on":true},{"on":false},{"on":false}],[{"on":true},{"on":false},{"on":false},{"on":true},{"on":false}],[{"on":true},{"on":false},{"on":false},{"on":false},{"on":true}]]
 }
