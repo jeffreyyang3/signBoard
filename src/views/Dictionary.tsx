@@ -23,7 +23,7 @@ const DictTable = ({
         <tr>
           <th>character</th>
           <th>matrix representation</th>
-          <tr>link to edit</tr>
+          <th>link to edit</th>
         </tr>
         {letterMatrixPairs.map(({ char, matrix }) => {
           return (

@@ -35,18 +35,18 @@ function BlockJSONWriter() {
   };
   const reset = () => setMatrix(createBaseMatrix(7, 5));
   return (
-    <div>
+    <div style={{ margin: "10px" }}>
       <textarea
         value={populateVal}
         onChange={(e) => setPopulateVal(e.target.value)}
       />
       <button onClick={() => setFromJSON(populateVal)}> set from json </button>
+      <button onClick={reset}>reset</button>
       {renderMatrix(matrix, (r, c) => {
         matrix[r][c].on = matrix[r][c].on ? false : true;
         setMatrix([...matrix]);
       })}
       <div>{JSON.stringify(matrix)}</div>
-      <button onClick={reset}>reset</button>
       <button
         onClick={() => navigator.clipboard.writeText(JSON.stringify(matrix))}
       >
@@ -73,6 +73,7 @@ function renderMatrix(
                 } as React.CSSProperties
               }
               onClick={() => squareOnClick(rIdx, cIdx)}
+              onMouseOver={(e) => e.buttons === 1 && squareOnClick(rIdx, cIdx)}
               className="matrixItem"
               key={cIdx}
             ></div>
