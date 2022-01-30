@@ -4,11 +4,7 @@ import { createBaseMatrix, renderMatrix, BlockJSONWriter } from "./matrix";
 import "./App.css";
 
 const Home = () => {
-  return (
-    <div className="App">
-      <BlockJSONWriter />
-    </div>
-  );
+  return <div className="App"></div>;
 };
 
 function App() {
@@ -18,7 +14,7 @@ function App() {
   //   matrix[r][c].on = matrix[r][c].on ? false : true;
   //   setMatrix([...matrix]);
   // };
-  return <h1>bo</h1>;
+  return <h1>app</h1>;
 }
 
 export default App;

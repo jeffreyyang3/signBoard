@@ -3,15 +3,21 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import { BlockJSONWriter } from "./matrix";
+import Dictionary from "../src/views/Dictionary";
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
+      <nav>
+        <Link to="/editor">Editor</Link>
+        <Link to="/dict">Dictionary</Link>
+      </nav>
       <Routes>
         <Route path="/" element={<App />}></Route>
         <Route path="/editor" element={<BlockJSONWriter />}></Route>
+        <Route path="/dict" element={<Dictionary />}></Route>
       </Routes>
     </Router>
   </React.StrictMode>,

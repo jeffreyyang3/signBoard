@@ -1,3 +1,5 @@
+import { create } from "domain";
+import { useLocation } from "react-router-dom";
 import React, { useState } from "react";
 
 type DisplayMatrix = Array<Array<MatrixItem>>;
@@ -19,7 +21,9 @@ function createBaseMatrix(r = 16, c = 32): DisplayMatrix {
     );
 }
 function BlockJSONWriter() {
-  const [matrix, setMatrix] = useState(createBaseMatrix(7, 5));
+  const location = useLocation();
+  const { initial } = (location.state ?? {}) as { initial?: DisplayMatrix };
+  const [matrix, setMatrix] = useState(initial || createBaseMatrix(7, 5));
   const [populateVal, setPopulateVal] = useState("");
   const setFromJSON = (val: string) => {
     try {
@@ -29,10 +33,10 @@ function BlockJSONWriter() {
     }
     setPopulateVal("");
   };
+  const reset = () => setMatrix(createBaseMatrix(7, 5));
   return (
     <div>
-      <input
-        type="text"
+      <textarea
         value={populateVal}
         onChange={(e) => setPopulateVal(e.target.value)}
       />
@@ -42,6 +46,7 @@ function BlockJSONWriter() {
         setMatrix([...matrix]);
       })}
       <div>{JSON.stringify(matrix)}</div>
+      <button onClick={reset}>reset</button>
       <button
         onClick={() => navigator.clipboard.writeText(JSON.stringify(matrix))}
       >
@@ -78,4 +83,5 @@ function renderMatrix(
   });
 }
 
+export type { DisplayMatrix, MatrixItem };
 export { renderMatrix, createBaseMatrix, BlockJSONWriter };
