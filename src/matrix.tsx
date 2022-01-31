@@ -83,5 +83,19 @@ function renderMatrix(
   });
 }
 
+const padOne = (matrix: DisplayMatrix): DisplayMatrix => {
+  const newMatrix = Array(matrix.length + 2)
+    .fill(null)
+    .map(() => {
+      return Array(matrix[0].length + 2).fill({ on: false });
+    });
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix[0].length; j++) {
+      newMatrix[i + 1][j + 1] = matrix[i][j];
+    }
+  }
+
+  return newMatrix;
+};
 export type { DisplayMatrix, MatrixItem };
-export { renderMatrix, createBaseMatrix, BlockJSONWriter };
+export { renderMatrix, createBaseMatrix, BlockJSONWriter, padOne };

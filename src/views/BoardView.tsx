@@ -1,9 +1,10 @@
 import React from "react";
 import { createBaseMatrix, renderMatrix } from "../matrix";
 import { DisplayMatrix } from "../matrix";
+import { padOne } from "../matrix";
 import letters from "../letters/lettersTS";
-const blockRows = 7;
-const blockCols = 5;
+const blockRows = 7 + 2;
+const blockCols = 5 + 2;
 
 const StringMatrixView = ({ str }: { str: string }) => {
   const matrixRows = blockRows;
@@ -12,7 +13,7 @@ const StringMatrixView = ({ str }: { str: string }) => {
 
   str.split("").forEach((char, idx) => {
     const colOffset = idx * blockCols;
-    const letterMatrix = letters[char];
+    const letterMatrix = padOne(letters[char]);
 
     for (let i = 0; i < blockRows; i++) {
       for (let j = 0; j < blockCols; j++) {
