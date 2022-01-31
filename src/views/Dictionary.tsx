@@ -25,21 +25,23 @@ const DictTable = ({
           <th>matrix representation</th>
           <th>link to edit</th>
         </tr>
-        {letterMatrixPairs.map(({ char, matrix }) => {
-          return (
-            <tr key={char}>
-              <td>
-                <h1>{char.toUpperCase()}</h1>
-              </td>
-              <td>{renderMatrix(matrix, () => {})}</td>
-              <td>
-                <Link state={{ initial: matrix }} to="/editor">
-                  to edit
-                </Link>
-              </td>
-            </tr>
-          );
-        })}
+        {letterMatrixPairs
+          .sort((a, b) => (a.char > b.char ? 1 : -1))
+          .map(({ char, matrix }) => {
+            return (
+              <tr key={char}>
+                <td>
+                  <h1>{char.toUpperCase()}</h1>
+                </td>
+                <td>{renderMatrix(matrix, () => {})}</td>
+                <td>
+                  <Link state={{ initial: matrix }} to="/editor">
+                    to edit
+                  </Link>
+                </td>
+              </tr>
+            );
+          })}
       </tbody>
     </table>
   );

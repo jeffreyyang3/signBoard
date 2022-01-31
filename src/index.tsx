@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
 import { BlockJSONWriter } from "./matrix";
 import Dictionary from "../src/views/Dictionary";
+import BoardView from "./views/BoardView";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 
@@ -13,9 +13,10 @@ ReactDOM.render(
       <nav>
         <Link to="/editor">Editor</Link>
         <Link to="/dict">Dictionary</Link>
+        <Link to="/">Board</Link>
       </nav>
       <Routes>
-        <Route path="/" element={<App />}></Route>
+        <Route path="/" element={<BoardView />}></Route>
         <Route path="/editor" element={<BlockJSONWriter />}></Route>
         <Route path="/dict" element={<Dictionary />}></Route>
       </Routes>
