@@ -21,7 +21,22 @@ const StringMatrixView = ({ str }: { str: string }) => {
       }
     }
   });
-  return <div>{renderMatrix(matrix, () => {})}</div>;
+  const matrixToString = () => {
+    const vals = [];
+    for (let i = 0; i < matrix.length; i++) {
+      for (let j = 0; j < matrix[0].length; j++) {
+        vals.push(matrix[i][j].on ? 1 : 0);
+      }
+    }
+    return vals.join('');
+  };
+  return (
+    <div>
+    <div>rows: {matrix.length}</div>
+    <div>cols: {matrix[0].length}</div>
+    {matrixToString()}
+    {renderMatrix(matrix, () => {})}</div>
+  );
 };
 
 interface Props {}
