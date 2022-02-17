@@ -16,9 +16,9 @@ code {
   display: flex;
 }
 .matrixItem {
-  height: 20px;
-  width: 20px;
-  margin: 4px;
+  height: 16px;
+  width: 16px;
+  margin: 2px;
   flex-shrink: 0;
 }
 

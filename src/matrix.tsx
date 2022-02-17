@@ -1,6 +1,9 @@
 import { useLocation } from "react-router-dom";
 import React, { useState } from "react";
 
+import letters from "./letters/lettersTS";
+const BLOCK_ROWS = 7;
+const BLOCK_COLS = 5;
 type DisplayMatrix = Array<Array<MatrixItem>>;
 interface MatrixItem {
   on: Boolean;
@@ -83,6 +86,16 @@ function renderMatrix(
   });
 }
 
+const matrixToString = (matrix: DisplayMatrix) => {
+  const vals = [];
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix[0].length; j++) {
+      vals.push(matrix[i][j].on ? 1 : 0);
+    }
+  }
+  return vals.join("");
+};
+
 const padOne = (matrix: DisplayMatrix): DisplayMatrix => {
   const newMatrix = Array(matrix.length + 2)
     .fill(null)
@@ -94,8 +107,31 @@ const padOne = (matrix: DisplayMatrix): DisplayMatrix => {
       newMatrix[i + 1][j + 1] = matrix[i][j];
     }
   }
-
   return newMatrix;
 };
+const stringToPaddedOneMatrix = (str: string) => {
+  const paddedBlockCols = BLOCK_COLS + 2;
+  const paddedBlockRows = BLOCK_ROWS + 2;
+  const matrix = createBaseMatrix(
+    paddedBlockRows,
+    paddedBlockCols * str.length
+  );
+  str.split("").forEach((char, idx) => {
+    const colOffset = idx * paddedBlockCols;
+    const letterMatrix = padOne(letters[char]);
+    for (let i = 0; i < paddedBlockRows; i++) {
+      for (let j = 0; j < paddedBlockCols; j++) {
+        matrix[i][j + colOffset] = letterMatrix[i][j];
+      }
+    }
+  });
+  return matrix;
+};
 export type { DisplayMatrix, MatrixItem };
-export { renderMatrix, createBaseMatrix, BlockJSONWriter, padOne };
+export {
+  renderMatrix,
+  createBaseMatrix,
+  BlockJSONWriter,
+  padOne,
+  stringToPaddedOneMatrix,
+};

@@ -1,48 +1,14 @@
+import StringMatrixView from "../components/StringMatrixView";
 import React from "react";
-import { createBaseMatrix, renderMatrix } from "../matrix";
-import { DisplayMatrix } from "../matrix";
-import { padOne } from "../matrix";
-import letters from "../letters/lettersTS";
 const blockRows = 7 + 2;
 const blockCols = 5 + 2;
-
-const StringMatrixView = ({ str }: { str: string }) => {
-  const matrixRows = blockRows;
-  const matrixCols = blockCols * str.length;
-  const matrix = createBaseMatrix(matrixRows, matrixCols);
-
-  str.split("").forEach((char, idx) => {
-    const colOffset = idx * blockCols;
-    const letterMatrix = padOne(letters[char]);
-
-    for (let i = 0; i < blockRows; i++) {
-      for (let j = 0; j < blockCols; j++) {
-        matrix[i][j + colOffset] = letterMatrix[i][j];
-      }
-    }
-  });
-  const matrixToString = () => {
-    const vals = [];
-    for (let i = 0; i < matrix.length; i++) {
-      for (let j = 0; j < matrix[0].length; j++) {
-        vals.push(matrix[i][j].on ? 1 : 0);
-      }
-    }
-    return vals.join('');
-  };
-  return (
-    <div>
-    <div>rows: {matrix.length}</div>
-    <div>cols: {matrix[0].length}</div>
-    {matrixToString()}
-    {renderMatrix(matrix, () => {})}</div>
-  );
-};
 
 interface Props {}
 interface State {
   lineOne: string;
   lineTwo: string;
+  lineThree: string;
+  minLength: number;
 }
 
 class BoardView extends React.Component<Props, State> {
@@ -51,6 +17,8 @@ class BoardView extends React.Component<Props, State> {
     this.state = {
       lineOne: "",
       lineTwo: "",
+      lineThree: "",
+      minLength: 0,
     };
   }
 
@@ -58,7 +26,14 @@ class BoardView extends React.Component<Props, State> {
     return (
       <div>
         <h1>this is the board</h1>
-        line 1{" "}
+        min pad
+        <input
+          type="number"
+          value={this.state.minLength}
+          onChange={(e) => this.setState({ minLength: Number(e.target.value) })}
+        />
+        <br />
+        line 1
         <input
           type="text"
           value={this.state.lineOne}
@@ -68,7 +43,7 @@ class BoardView extends React.Component<Props, State> {
             })
           }
         />
-        line 1{" "}
+        line 2
         <input
           type="text"
           value={this.state.lineTwo}
@@ -78,14 +53,36 @@ class BoardView extends React.Component<Props, State> {
             })
           }
         />
-        <div>
-          line one is <strong>{this.state.lineOne}</strong>
-          <br />
-          line two is <strong>{this.state.lineTwo}</strong>
-        </div>
-        <StringMatrixView str={this.state.lineOne}></StringMatrixView>
+        line 3
+        <input
+          type="text"
+          value={this.state.lineThree}
+          onChange={(e) =>
+            this.setState({
+              lineThree: e.target.value,
+            })
+          }
+        />
+        {this.threeLinesPadded().lines.map((line, idx) => {
+          return <StringMatrixView str={line} key={idx}></StringMatrixView>;
+        })}
       </div>
     );
+  }
+  threeLinesPadded() {
+    const lines = [
+      this.state.lineOne,
+      this.state.lineTwo,
+      this.state.lineThree,
+    ];
+    const maxLength = Math.max(
+      ...lines.map((line) => line.length),
+      this.state.minLength
+    );
+    return {
+      lines: lines.map((line) => line.padEnd(maxLength, " ")),
+      maxLength,
+    };
   }
 }
 export default BoardView;
