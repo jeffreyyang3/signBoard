@@ -1,7 +1,10 @@
 import StringMatrixView from "../components/StringMatrixView";
+import {
+  DisplayMatrix,
+  getMatrixInfoString,
+  stringToPaddedOneMatrix,
+} from "../matrix";
 import React from "react";
-const blockRows = 7 + 2;
-const blockCols = 5 + 2;
 
 interface Props {}
 interface State {
@@ -63,6 +66,20 @@ class BoardView extends React.Component<Props, State> {
             })
           }
         />
+        <button
+          onClick={() => {
+            navigator.clipboard.writeText(
+              getMatrixInfoString(
+                this.threeLinesPadded().lines.reduce(
+                  (acc, curr) => [...acc, ...stringToPaddedOneMatrix(curr)],
+                  [] as DisplayMatrix
+                )
+              )
+            );
+          }}
+        >
+          copy string
+        </button>
         {this.threeLinesPadded().lines.map((line, idx) => {
           return <StringMatrixView str={line} key={idx}></StringMatrixView>;
         })}

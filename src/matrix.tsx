@@ -96,6 +96,24 @@ const matrixToString = (matrix: DisplayMatrix) => {
   return vals.join("");
 };
 
+const getMatrixInfoString = (matrix: DisplayMatrix) => {
+  return `${matrixToString(matrix)},${matrix.length},${
+    (matrix[0] || []).length
+  }`;
+};
+
+const parseMatrixStringToMatrix = (matrixInfoString: string) => {
+  const [matrixString, _rows, _cols] = matrixInfoString.split(",");
+  const rows = Number(_rows);
+  const cols = Number(_cols);
+  const matrix = createBaseMatrix(rows, cols);
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+      matrix[i][j] = { on: matrixString[i * cols + j] === "1" };
+    }
+  }
+  return matrix;
+};
 const padOne = (matrix: DisplayMatrix): DisplayMatrix => {
   const newMatrix = Array(matrix.length + 2)
     .fill(null)
@@ -134,4 +152,6 @@ export {
   BlockJSONWriter,
   padOne,
   stringToPaddedOneMatrix,
+  getMatrixInfoString,
+  parseMatrixStringToMatrix,
 };
