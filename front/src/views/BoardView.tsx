@@ -42,7 +42,7 @@ class BoardView extends React.Component<Props, State> {
   render() {
     return (
       <div>
-        <h1>this is the board</h1>
+        <h1>this is the board 4</h1>
         min pad
         <input
           type="number"
