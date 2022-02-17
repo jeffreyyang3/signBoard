@@ -12,6 +12,7 @@ interface State {
   lineTwo: string;
   lineThree: string;
   minLength: number;
+  socket: WebSocket | null;
 }
 
 class BoardView extends React.Component<Props, State> {
@@ -22,7 +23,20 @@ class BoardView extends React.Component<Props, State> {
       lineTwo: "",
       lineThree: "",
       minLength: 0,
+      socket: null,
     };
+  }
+
+  componentDidMount() {
+    try {
+      const socket = new WebSocket("ws://10.0.1.171:8080");
+      this.setState({
+        socket,
+      });
+      console.log(socket);
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   render() {
@@ -68,14 +82,7 @@ class BoardView extends React.Component<Props, State> {
         />
         <button
           onClick={() => {
-            navigator.clipboard.writeText(
-              getMatrixInfoString(
-                this.threeLinesPadded().lines.reduce(
-                  (acc, curr) => [...acc, ...stringToPaddedOneMatrix(curr)],
-                  [] as DisplayMatrix
-                )
-              )
-            );
+            navigator.clipboard.writeText(this.threeLinesInfoString());
           }}
         >
           copy string
@@ -86,6 +93,29 @@ class BoardView extends React.Component<Props, State> {
       </div>
     );
   }
+
+  sendToSocket() {
+    this.state.socket?.send(this.threeLinesInfoString());
+  }
+
+  componentDidUpdate(_: Props, prevState: State) {
+    for (const stateProp of ["lineOne", "lineTwo", "lineThree", "minPad"]) {
+      // @ts-ignore
+      if (this.state[stateProp] !== prevState[stateProp]) {
+        this.sendToSocket();
+        return;
+      }
+    }
+  }
+  threeLinesInfoString() {
+    return getMatrixInfoString(
+      this.threeLinesPadded().lines.reduce(
+        (acc, curr) => [...acc, ...stringToPaddedOneMatrix(curr)],
+        [] as DisplayMatrix
+      )
+    );
+  }
+
   threeLinesPadded() {
     const lines = [
       this.state.lineOne,
