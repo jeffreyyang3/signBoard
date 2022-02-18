@@ -1,11 +1,17 @@
 version: "3"
 services:
-  front:
+  back:
+    tty: true
     build:
-      context: ./front
+      context: ./back
+      dockerfile: Dockerfile
     volumes:
-      - ./front:/front
-      - /app/node_modules
-    ports:
-      - "3000:3000"
-
+      - ./back:/back
+      # front:
+  #   build:
+  #     context: ./front
+  #   volumes:
+  #     - ./front:/front
+  #     - /app/node_modules
+  #   ports:
+  #     - "3000:3000"
