@@ -37,8 +37,9 @@ function BlockJSONWriter() {
   };
   const reset = () => setMatrix(createBaseMatrix(7, 5));
   return (
-    <div style={{ margin: "10px" }}>
+    <div className="container" style={{ margin: "10px" }}>
       <textarea
+        className="textarea"
         value={populateVal}
         onChange={(e) => setPopulateVal(e.target.value)}
       />

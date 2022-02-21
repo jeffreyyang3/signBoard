@@ -1,19 +1,45 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
+import "bulma/css/bulma.min.css";
 import { BlockJSONWriter } from "./matrix";
 import Dictionary from "../src/views/Dictionary";
 import BoardView from "./views/BoardView";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 
+const links = [
+  {
+    href: "/editor",
+    title: "Editor",
+  },
+  {
+    href: "/dict",
+    title: "Dictionary",
+  },
+  {
+    href: "/",
+    title: "Board",
+  },
+];
+
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <nav>
-        <Link to="/editor">Editor</Link>
-        <Link to="/dict">Dictionary</Link>
-        <Link to="/">Board</Link>
+      <nav className="navbar">
+        <div className="navbar-brand">
+          <h1 className="is-size-3">woohoo!</h1>
+        </div>
+        <div className="navbar-start">
+          {links.map(({ href, title }) => {
+            return (
+              <Link className="navbar-item" to={href} key={title}>
+                {" "}
+                {title}
+              </Link>
+            );
+          })}
+        </div>
       </nav>
       <Routes>
         <Route path="/" element={<BoardView />}></Route>
