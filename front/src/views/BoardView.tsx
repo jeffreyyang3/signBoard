@@ -1,4 +1,5 @@
 import StringMatrixView from "../components/StringMatrixView";
+import { get } from "../helpers/apiClient";
 import {
   DisplayMatrix,
   getMatrixInfoString,
@@ -39,10 +40,17 @@ class BoardView extends React.Component<Props, State> {
     }
   }
 
+  async makeRequest() {
+    const res = await get({
+      path: "presets",
+    });
+    console.log(res);
+  }
   render() {
     return (
       <div>
         <h1>this is the board 4</h1>
+        <button onClick={() => this.makeRequest()}>make request</button>
         min pad
         <input
           type="number"
@@ -102,7 +110,7 @@ class BoardView extends React.Component<Props, State> {
     for (const stateProp of ["lineOne", "lineTwo", "lineThree", "minPad"]) {
       // @ts-ignore
       if (this.state[stateProp] !== prevState[stateProp]) {
-        this.sendToSocket();
+        // this.sendToSocket();
         return;
       }
     }
