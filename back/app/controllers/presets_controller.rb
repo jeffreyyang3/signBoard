@@ -4,6 +4,7 @@ class PresetsController < ApplicationController
     :cool => :man
   }
   def index
+    StockFetchJob.perform_later 
     render :json => Preset.all
   end
 
