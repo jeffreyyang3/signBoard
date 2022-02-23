@@ -10,12 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_02_21_015038) do
+ActiveRecord::Schema[7.0].define(version: 2022_02_23_022811) do
+  create_table "exes", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "presets", force: :cascade do |t|
     t.string "title"
     t.text "info_string"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "stock_infos", force: :cascade do |t|
+    t.string "symbol"
+    t.string "price"
+    t.string "delta"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["symbol"], name: "index_stock_infos_on_symbol", unique: true
   end
 
 end

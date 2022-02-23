@@ -74,3 +74,5 @@ end
 gem "rack-cors", "~> 1.1"
 
 gem "http", "~> 5.0"
+
+gem "whenever", "~> 1.0"

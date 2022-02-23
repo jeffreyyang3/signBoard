@@ -1,10 +1,7 @@
 class PresetsController < ApplicationController
   skip_before_action :verify_authenticity_token
-  @@obj = {
-    :cool => :man
-  }
+
   def index
-    StockFetchJob.perform_later 
     render :json => Preset.all
   end
 

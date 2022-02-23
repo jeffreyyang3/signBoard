@@ -18,3 +18,15 @@ Preset.create(
     }
   ]
 )
+
+
+StockInfo.create(
+  [
+    {
+      :symbol => 'OPEN'
+    },
+    {
+      :symbol => 'U'
+    }
+  ]
+)
