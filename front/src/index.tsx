@@ -28,7 +28,7 @@ ReactDOM.render(
     <Router>
       <nav className="navbar">
         <div className="navbar-brand">
-          <h1 className="is-size-3">woohoo!</h1>
+          <h1 className="is-size-3">cool cool cool</h1>
         </div>
         <div className="navbar-start">
           {links.map(({ href, title }) => {
