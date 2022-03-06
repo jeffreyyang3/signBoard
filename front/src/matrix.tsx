@@ -146,6 +146,20 @@ const stringToPaddedOneMatrix = (str: string) => {
   });
   return matrix;
 };
+
+const infoStringToMatrix = (str: string) => {
+  const [zeroOne, _rows, _cols] = str.split(",");
+  const rows = Number(_rows);
+  const cols = Number(_cols);
+  const matrix = createBaseMatrix(rows, cols);
+
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+      matrix[i][j] = { on: zeroOne[i * cols + j] === "1" };
+    }
+  }
+  return matrix;
+};
 export type { DisplayMatrix, MatrixItem };
 export {
   renderMatrix,
@@ -155,4 +169,5 @@ export {
   stringToPaddedOneMatrix,
   getMatrixInfoString,
   parseMatrixStringToMatrix,
+  infoStringToMatrix,
 };
