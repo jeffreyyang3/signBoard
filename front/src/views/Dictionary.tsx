@@ -16,7 +16,6 @@ const DictTable = ({
 }: {
   letterMatrixPairs: letterMatrixPairType;
 }) => {
-  console.log(letterMatrixPairs);
   return (
     <table>
       <tbody>

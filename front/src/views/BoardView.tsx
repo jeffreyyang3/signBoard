@@ -1,10 +1,11 @@
 import StringMatrixView from "../components/StringMatrixView";
-import { get } from "../helpers/apiClient";
+import { post } from "../helpers/apiClient";
 import {
   DisplayMatrix,
   getMatrixInfoString,
   stringToPaddedOneMatrix,
 } from "../matrix";
+import { MatrixDisplayInfo } from "../types";
 import React from "react";
 
 interface Props {}
@@ -14,6 +15,7 @@ interface State {
   lineThree: string;
   minLength: number;
   socket: WebSocket | null;
+  presetName: string;
 }
 
 class BoardView extends React.Component<Props, State> {
@@ -25,10 +27,12 @@ class BoardView extends React.Component<Props, State> {
       lineThree: "",
       minLength: 0,
       socket: null,
+      presetName: "",
     };
   }
 
   componentDidMount() {
+    if (2 === 2) return;
     try {
       const socket = new WebSocket("ws://10.0.1.171:8080");
       this.setState({
@@ -36,13 +40,19 @@ class BoardView extends React.Component<Props, State> {
       });
       console.log(socket);
     } catch (e) {
+      console.log("original websocket connection fails");
       console.log(e);
     }
   }
 
   async makeRequest() {
-    const res = await get({
+    const postBody = {
+      info_string: this.threeLinesInfoString(),
+      title: this.state.presetName,
+    } as MatrixDisplayInfo;
+    const res = await post({
       path: "presets",
+      postBody,
     });
     console.log(res);
   }
@@ -50,7 +60,15 @@ class BoardView extends React.Component<Props, State> {
     return (
       <div>
         <h1>this is the board 4</h1>
-        <button onClick={() => this.makeRequest()}>make request</button>
+        <button onClick={() => this.makeRequest()}>post request</button>
+        <br />
+        <input
+          type="text"
+          value={this.state.presetName}
+          onChange={(e) => this.setState({ presetName: e.target.value })}
+        />{" "}
+        title of preset?
+        <br />
         min pad
         <input
           type="number"

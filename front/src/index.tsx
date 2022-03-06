@@ -5,6 +5,7 @@ import "bulma/css/bulma.min.css";
 import { BlockJSONWriter } from "./matrix";
 import Dictionary from "../src/views/Dictionary";
 import BoardView from "./views/BoardView";
+import AllPresets from "./views/AllPresets";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 
@@ -20,6 +21,10 @@ const links = [
   {
     href: "/",
     title: "Board",
+  },
+  {
+    href: "/presets",
+    title: "Presets",
   },
 ];
 
@@ -45,6 +50,7 @@ ReactDOM.render(
         <Route path="/" element={<BoardView />}></Route>
         <Route path="/editor" element={<BlockJSONWriter />}></Route>
         <Route path="/dict" element={<Dictionary />}></Route>
+        <Route path="/presets" element={<AllPresets />}></Route>
       </Routes>
     </Router>
   </React.StrictMode>,

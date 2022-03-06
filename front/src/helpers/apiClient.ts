@@ -9,10 +9,39 @@ const get = async ({
   params?: Record<string, string>;
   fetchOptions?: RequestInit;
 }) => {
-  const result = await fetch(
-    globalPath || `http://localhost:3000/${path}`,
-    fetchOptions || {}
-  );
+  const options = {
+    ...fetchOptions,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  const result = await fetch(globalPath || `/back/${path}`, fetchOptions || {});
   return result.json();
 };
-export { get };
+const post = async ({
+  path,
+  globalPath,
+  params,
+  postBody,
+  fetchOptions,
+}: {
+  path?: string;
+  globalPath?: string;
+  params?: Record<string, string>;
+  postBody?: any;
+  fetchOptions?: RequestInit;
+}) => {
+  const options = {
+    ...fetchOptions,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "POST",
+    ...(postBody && {
+      body: JSON.stringify(postBody),
+    }),
+  };
+  const result = await fetch(globalPath || `/back/${path}`, options);
+  return result.json();
+};
+export { get, post };

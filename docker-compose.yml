@@ -10,6 +10,8 @@ services:
   nginx:
     build:
       context: ./nginx
+    logging:
+      driver: none
     ports: 
       - '80:80'
   front:
