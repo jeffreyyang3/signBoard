@@ -2,8 +2,8 @@ class PresetsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
+    ActionCable.server.broadcast('Preset', { bobo: true })
     render :json => Preset.all
-    Preset.first.cool
   end
 
   def create
