@@ -7,6 +7,7 @@ import {
 } from "../matrix";
 import { MatrixDisplayInfo } from "../types";
 import React from "react";
+import ActionCable from "actioncable";
 
 interface Props {}
 interface State {
@@ -32,6 +33,25 @@ class BoardView extends React.Component<Props, State> {
   }
 
   componentDidMount() {
+    let msg = JSON.stringify({
+      command: "subscribe",
+      identifier: JSON.stringify({
+        channel: "MatrixBroadcastChannel",
+      }),
+    });
+
+    // @ts-ignore
+    const socket = new WebSocket("ws://localhost:3000/cable/presets");
+    // @ts-ignore
+
+    socket.addEventListener("open", (e) => {
+      socket.send(msg);
+    });
+
+    socket.addEventListener("message", (m) => {
+      console.log(m);
+    });
+
     if (2 === 2) return;
     try {
       const socket = new WebSocket("ws://10.0.1.171:8080");
